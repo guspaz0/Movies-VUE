@@ -42,6 +42,7 @@ import {ref, watch, reactive, onMounted } from 'vue'
 import {fetchData} from '../utils/utils'
 import CardPelicula from './CardPelicula.vue'
 
+
 let endpoint = '/movies?page='
 let origen = ref('local')
 let page = ref(1)

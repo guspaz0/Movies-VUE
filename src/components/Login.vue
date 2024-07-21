@@ -1,6 +1,6 @@
 
 <script setup lang="ts">
-AOS.init()
+
 </script>
 
 <template>

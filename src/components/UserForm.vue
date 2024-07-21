@@ -1,11 +1,11 @@
-<script>
+<script setup lang="ts">
 
 </script>
 <template>
     <link href="/css/register.css" rel="stylesheet"/>
     <div class="container">
         <h2>Registrarse</h2>
-        <form action="#">
+        <form>
             <div class="form-group">
             <label for="nombre">Nombre:</label>
             <input type="text" id="nombre" name="nombre" required>
