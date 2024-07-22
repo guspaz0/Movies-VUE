@@ -21,7 +21,7 @@
     </div>
 </template>
 <script setup lang="ts">
-import { onMounted, ref, watch, reactive } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import { useRoute } from 'vue-router'
 import fetchData from '../utils/utils';
 

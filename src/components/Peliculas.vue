@@ -26,10 +26,8 @@
                 <button @click="handlePage" id="previous" class="pagination" :disabled="page == 1">Anterior</button>
                 <button @click="handlePage" id="next" class="pagination" :disabled="page == Movies.total_pages">Siguiente</button>
                 <small v-if="Movies.page">Pagina <b>{{ Movies.page }}</b> de <b>{{ Movies.total_pages }}</b>. mostrando {{ Movies.results.length }} elementos por pagina</small>
-                <!-- aqui se inserta los botones de paginacion con javascript -->
             </div>
                 <div v-if="Movies.results.length > 0" className="contenedor-cartas">
-                <!-- aqui se insertan las cards de peliculas con javascript -->
                 <CardPelicula v-for="movie in Movies.results" :origen="origen" :key="movie.id+movie.title":movie="movie"/>
             </div>
             <div v-else="results.length == 0" className="cards-container"> Error al hacer la peticion del API</div>
@@ -39,9 +37,11 @@
 
 <script setup lang="ts">
 import {ref, watch, reactive, onMounted } from 'vue'
+import { useRouter } from 'vue-router';
 import {fetchData} from '../utils/utils'
 import CardPelicula from './CardPelicula.vue'
 
+const router = useRouter()
 
 let endpoint = '/movies?page='
 let origen = ref('local')
@@ -63,21 +63,29 @@ watch(search,(oldVal: any, newVal: any)=>{
 watch(origen, async (newp: any, oldp: any) => {
     try {
         page.value=1
+        router.push({path: 'peliculas', query: {page: page.value}})
         Movies.value = await fetchData(origen.value,endpoint+page.value)
     } catch (e) {console.log(e)}
 })
 watch(page, async (newPage: any, oldPage: any) =>{
     try {
+        router.push({path: 'peliculas', query: {page: page.value}})
         Movies.value = await fetchData(origen.value,endpoint+page.value)
     } catch (e) {console.log(e)}
 })
 function handlePage(e: any) {
     e.preventDefault()
     if (e.target.id == "next") {
-        if (page.value < Movies.value.total_pages) page.value++
+        if (page.value < Movies.value.total_pages) {
+            page.value++
+            router.push({path: 'peliculas', query: {page: page.value}})
+        }
     }
     if (e.target.id == "previous") {
-        if (page.value > 1) page.value--
+        if (page.value > 1){
+            page.value--
+            router.push({path: 'peliculas', query: {page: page.value}})
+        }
     }
 }
 function handleorigin(event: any){

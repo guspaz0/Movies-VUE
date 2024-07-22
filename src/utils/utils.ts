@@ -14,12 +14,12 @@ export async function fetchData(origen: String, param: String, method: String, b
                 'Accept': 'application/json',
                 'Authorization': VITE_IMDB_AUTH
             },
-            [body? 'body': '']: body? body : ''
+            [body? 'body': '']: body? JSON.stringify(body) : ''
         }
         const res = await fetch(`${host[origen]}${param}`, config)
 
         if (method?.toUpperCase() == 'POST') {
-            if (res.status !== 201) throw new Error('error al postear datos')
+            if (res.status !== 201 && param == '/movies') throw new Error('error al postear datos')
             else return await res.json()
         } 
         else return await res.json()

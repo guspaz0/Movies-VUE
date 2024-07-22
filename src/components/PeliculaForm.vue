@@ -31,9 +31,8 @@
     </main>
 </template>
 <script setup lang="ts">
-import {ref, watch, reactive, onMounted, watchEffect } from 'vue'
+import {ref, watch, reactive, onMounted } from 'vue'
 import {fetchData} from '../utils/utils'
-import validateForm from '../utils/validateForm'
 import popUp from './popUp.vue'
 
 let Genres: List<Genre> = ref([])
@@ -89,7 +88,6 @@ watch(()=> form.overview,(value)=> {
 watch(()=> form.release_date,(value)=> {
     errors.value.release_date = ''
     if(value.length == 0) errors.value.release_date = "Fecha de lanzamiento no puede estar vacio"
-    if(value.valueAsDate == null) errors.value.release_date = "ingresar una fecha"
     if(value.length != 10) errors.value.release_date = "formato de fecha invalido"
 },{immediate: true})
 watch(()=> form.genres,(value)=> {
@@ -100,16 +98,14 @@ watch(()=> form.genres,(value)=> {
 let popUpData = ref({
     message: '',
     redirect: '',
-    second: '',
-    endpoint: ''
+    second: 0
 })
 
 function setPopUp(){
     popUpData.value = {
         message: '',
         redirect: '',
-        second: '',
-        endpoint: ''
+        second: ''
     }   
 }
 
@@ -117,10 +113,13 @@ async function handleSubmit(e){
     try {
         e.preventDefault()
         if(Object.keys(errors.value).some(x => errors.value[x].length > 0)) {
-            popUpData.value = {message: 'Corregir los errores del formulario' }
+            popUpData.value.message = 'Corregir los errores del formulario'
         }
         else {
             let newMovie = await fetchData('local','/movies', 'POST', form)
+            if (newMovie.id) {
+                popUpData.value = {message: "Pelicula creada con exito", second: 5, redirect: '/peliculas'}
+            }
         }
 
     } catch (error) {
