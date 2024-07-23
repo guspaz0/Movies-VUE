@@ -9,7 +9,8 @@
             <span class="container-data">
                 <span v-for="input in Object.keys(form).filter(x => form[x].constructor !== Array)">
                     <label :for="input"><b>{{ labels[input] }}</b></label>
-                    <input v-model.trim="form[input]" v-bind:type="input == 'release_date'? 'date' : 'text'" :id="input" :name="input"/>
+                    <textarea v-if="input == 'overview'" v-model.trim="form[input]" :id="input" :name="input"></textarea>
+                    <input v-else v-model.trim="form[input]" v-bind:type="input == 'release_date'? 'date' : 'text'" :id="input" :name="input"/>
                     <small v-if="errors[input]" class="error">{{ errors[input] }}</small>
                 </span>
             </span>
@@ -39,6 +40,7 @@ let Genres: List<Genre> = ref([])
 
 let form = reactive({
     title: '',
+    short_overview: '',
     image: '',
     background_image: '',
     overview: '',
@@ -48,6 +50,7 @@ let form = reactive({
 
 let labels = {
     title: 'Titulo',
+    short_overview: 'Reseña',
     image: 'Imange',
     background_image: 'Imagen de fondo',
     overview: 'Sinopsis',
@@ -55,6 +58,7 @@ let labels = {
 }
 let errors = ref({
     title: '',
+    short_overview: '',
     image: '',
     background_image: '',
     overview: '',
@@ -71,6 +75,11 @@ watch(()=> form.title,(value)=> {
     errors.value.title = ''
     if(value.length == 0) errors.value.title = "Titulo no puede estar vacio"
     if(value.length > 30) errors.value.title = "Titulo debe tener menos de 30 caracteres"
+},{immediate: true})
+watch(()=> form.short_overview,(value)=> {
+    errors.value.short_overview = ''
+    if(value.length == 0) errors.value.short_overview = "Reseña no puede estar vacio"
+    if(value.length > 30) errors.value.short_overview = "Reseña debe tener menos de 30 caracteres"
 },{immediate: true})
 watch(()=> form.image,(value)=> {
     errors.value.image = ''
@@ -126,5 +135,5 @@ async function handleSubmit(e){
         console.log(error)
     }
 } 
-
 </script>
+

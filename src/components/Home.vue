@@ -10,21 +10,21 @@
             </div>
             <div class="carousel-inner">
             <div class="carousel-item active">
-                <img src="/imagenes/cine.jpg" class="d-block w-100" alt="Pelicula 1">
+                <img src="/imagenes/cine.jpg" class="d-block w-100" alt="Pelicula 1" loading="lazy"/>
                 <div class="carousel-caption d-none d-md-block">
                 <h5>Pelicula 1</h5>
                 <p>Peliculas de terror: suspenso y drama.</p>
                 </div>
             </div>
             <div class="carousel-item">
-                <img src="/imagenes/netflix.jpg" class="d-block w-100" alt="pelicula 3">
+                <img src="/imagenes/netflix.jpg" class="d-block w-100" alt="pelicula 3" loading="lazy"/>
                 <div class="carousel-caption d-none d-md-block">
                 <h5>Pelicula 2</h5>
                 <p>Pelicula de comedia: diversion y drama.</p>
                 </div>
             </div>
             <div class="carousel-item">
-                <img src="/imagenes/musical.jpg" class="d-block w-100" alt="pelicula">
+                <img src="/imagenes/musical.jpg" class="d-block w-100" alt="pelicula" loading="lazy"/>
                 <div class="carousel-caption d-none d-md-block">
                 <h5>PELICULA 3</h5>
                 <p>Peliculas de terror: suspenso y drama.</p>
@@ -47,62 +47,16 @@
     <div class="container-fluid">
         <div class="row">
             <div class="card-group">
-            <div class="card">
-                <img src="/imagenes/para todo punlico.jpg" class="card-img-top" alt="pelicula">
-                <div class="card-body">
-                <h5 class="card-title">Pelicula 1</h5>
-                <p class="card-text">Pelicula de Comedia: para disfrutar con toda la familia apta para todo publico.</p>
-                <p class="card-text"><small class="text-body-secondary">Pelicula calificada: 5 estrellas</small></p>
+                <div class="card" v-if="Movies.results" v-for="movie in Movies.results.slice(0,6)">
+                    <router-link :to="'/peliculas/local/'+movie.id" class="card-body">
+                        <img :src="movie.image" class="card-img-top" :alt="movie.title" loading="lazy">
+                        <h5 class="card-title">{{ movie.title }}</h5>
+                        <p class="card-text">{{ movie.short_overview }}</p>
+                        <p class="card-text">
+                            <small class="text-body-secondary">Pelicula calificada: {{ movie.stars }} estrellas</small>
+                        </p>
+                    </router-link>
                 </div>
-            </div>
-            <div class="card">
-                <img src="/imagenes/musical.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                <h5 class="card-title">Pelicula 2</h5>
-                <p class="card-text">Pelicula de Comedia: para disfrutar con toda la familia apta para todo publico..</p>
-                <p class="card-text"><small class="text-body-secondary">Pelicula calificada: 2 estrellas</small></p>
-                </div>
-            </div>
-            <div class="card">
-                <img src="/imagenes/netflix.jpg" class="card-img-top" alt="">
-                <div class="card-body">
-                <h5 class="card-title">Pelicula 3</h5>
-                <p class="card-text"> Pelicula de Comedia: para disfrutar con toda la familia apta para todo publico.</p>
-                <p class="card-text"><small class="text-body-secondary">Calificacion de la pelicula: 4 estrellas </small></p>
-                </div>
-            </div>
-            <div class="card">
-                <img src="/imagenes/cine.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                <h5 class="card-title">Pelicula 3</h5>
-                <p class="card-text"> Pelicula de Comedia: para disfrutar con toda la familia apta para todo publico.</p>
-                <p class="card-text"><small class="text-body-secondary">Calificacion de la pelicula: 4 estrellas </small></p>
-                </div>
-            </div>
-            <div class="card">
-                <img src="/imagenes/para todo punlico.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                <h5 class="card-title">Pelicula 3</h5>
-                <p class="card-text"> Pelicula de Comedia: para disfrutar con toda la familia apta para todo publico.</p>
-                <p class="card-text"><small class="text-body-secondary">Calificacion de la pelicula: 4 estrellas </small></p>
-                </div>
-            </div>
-            <div class="card">
-                <img src="/imagenes/cine.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                <h5 class="card-title">Pelicula 3</h5>
-                <p class="card-text"> Pelicula de Comedia: para disfrutar con toda la familia apta para todo publico.</p>
-                <p class="card-text"><small class="text-body-secondary">Calificacion de la pelicula: 4 estrellas </small></p>
-                </div>
-            </div>
-            <div class="card">
-                <img src="/imagenes/musical.jpg" class="card-img-top" alt="..." >
-                <div class="card-body">
-                <h5 class="card-title">Pelicula 3</h5>
-                <p class="card-text"> Pelicula de Comedia: para disfrutar con toda la familia apta para todo publico.</p>
-                <p class="card-text"><small class="text-body-secondary">Calificacion de la pelicula: 4 estrellas </small></p>
-                </div>
-            </div>
             </div>
         </div>
     </div>
@@ -130,3 +84,30 @@
     </main>
     <hr>
 </template>
+<script setup lang="ts">
+import {ref, onMounted} from 'vue'
+import { fetchData } from '../utils/utils'
+
+let Movies = ref([])
+
+onMounted(async ()=>{
+    try {
+        Movies.value = await fetchData('local','/movies')
+    } catch (error) {console.log(error)}
+    
+})
+
+
+</script>
+<style scoped>
+.card {
+    align-items: center;
+}
+.card-body {
+    text-align: center;
+}
+.card-img-top {
+    max-height: 200px;
+    max-width: 200px;
+}
+</style>

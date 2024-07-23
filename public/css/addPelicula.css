@@ -52,7 +52,7 @@ input[type=submit]:hover {
     color: black;
 }
 
-input[type=text], input[type=password], input[type=date] {
+input[type=text], input[type=password], input[type=date], textarea {
     padding: 5px;
     border-radius: 5px;
     border: none
