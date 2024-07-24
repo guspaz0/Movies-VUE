@@ -2,22 +2,27 @@
     <main>
         <link href="/css/login.css" rel="stylesheet"/>
     <div class="container aos-init aos-animate" data-aos='zoom-in' data-aos-duration='1000' >
-        <form action="/user/login" method="POST">
+        <form v-on:submit.prevent="handleSubmit">
             <fieldset>
                 <legend>
-                    <label for="username">Nombre de usuario y/o Correo:</label>
+                    <label for="username">Usuario/Correo
+                        <font-awesome-icon :icon="['fas', 'at']" size="lg"/>
+                    </label>
                 </legend>
                 <input v-model="form.username" type="text" id="username" name="username"/>
                 <small v-if="errors.username" class="error">{{ errors.username }}</small>
             </fieldset>
             <fieldset>
                 <legend>
-                    <label for="password">Contraseña:</label>
+                    <label for="password">Contraseña <font-awesome-icon :icon="['fas','user-secret']" size="lg"/> </label>
                 </legend>
-                <input v-model="form.password" type="password" id="password" name="password"/>
+                <span>
+                    <input v-model="form.password" type="password" id="password" name="password"/>
+                    
+                </span>
                 <small v-if="errors.password" class="error">{{ errors.password }}</small>
             </fieldset>
-            <input @click="handleSubmit" id="submit" name="submit" type="submit"/>
+            <input id="submit" name="submit" type="submit"/>
         </form>
         <popUp v-if="Object.keys(popUpData).some(x => popUpData[x].length > 0)" :popUpData="popUpData" @setPopUp="setPopUp"/>
         <p><router-link v-bind:to="'/register'">Registrate</router-link></p>
@@ -64,8 +69,7 @@ function setPopUp(){
     }   
 }
 
-async function handleSubmit(e){
-    e.preventDefault()
+async function handleSubmit(){
     try {
         if(Object.keys(errors.value).some(x => errors.value[x].length > 0)) {
             popUpData.value.message = 'Corregir los errores del formulario'

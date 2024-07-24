@@ -11,21 +11,21 @@
             <div class="col-auto footer"><!--columna -->
                 <div class=" d-grid gap-2 d-md-flex justify-content-md-end" >
                 <a class="navbar-brand" href="https://buenosaires.gob.ar/educacion/codo-codo-40">
-                    <i class="fa-brands fa-whatsapp fa-2xl"></i>
+                    <font-awesome-icon :icon="['fab','whatsapp']" size="2x"/>
                 </a>
                 <a class="navbar-brand" href="https://www.facebook.com/codoacodooficial">
-                    <i class="fa-brands fa-facebook fa-2xl"></i>
+                    <font-awesome-icon :icon="['fab','facebook']" size="2x"/>
                 </a>
                 <a class="navbar-brand" href="https://twitter.com">
-                    <i class="fa-brands fa-x-twitter fa-2xl"></i>
+                    <font-awesome-icon :icon="['fab','twitter']" size="2x"/>
                     
                 </a>
                 <a class="navbar-brand" href="https://www.linkedin.com/company/codo-a-codo-4-0-ciudad-de-buenos-aires/?originalSubdomain=ar">
-                    <i class="fa-brands fa-linkedin fa-2xl"></i>
+                    <font-awesome-icon :icon="['fab','linkedin']" size="2x"/>
                     
                 </a>
                 <a class="navbar-brand" href="https://www.instagram.com/programacodoacodo/?hl=es">
-                    <i class="fa-brands fa-instagram fa-2xl"></i>
+                    <font-awesome-icon :icon="['fab','instagram']" size="2x"/>
                 </a>
                 </div>
             </div>

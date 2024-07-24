@@ -1,30 +1,17 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-import { createRouter, createWebHistory } from 'vue-router'
-import Home from './components/Home.vue'
-import Peliculas from './components/Peliculas.vue'
-import MovieDetail from './components/MovieDetail.vue'
-import PeliculaForm from './components/PeliculaForm.vue'
-import Nosotros from './components/Nosotros.vue'
-import UserForm from './components/UserForm.vue'
-import Login from './components/Login.vue'
+import Router from './router'
 
-const routes = [
-    {path: '/', name: 'Home', component: Home},
-    {path: '/peliculas', name: 'Peliculas', component: Peliculas},
-    {path: '/peliculas/add', name: 'PeliculaForm', component: PeliculaForm},
-    {path: '/peliculas/:origen/:id', name: 'MovieDetail', component: MovieDetail},
-    {path: '/nosotros', name: 'Nosotros', component: Nosotros},
-    {path: '/register', name: 'UserForm', component: UserForm},
-    {path: '/login', name: 'Iniciar Sesion', component: Login}
-]
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faStar, faUserSecret, faAt, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
+import { faStar as farStar } from '@fortawesome/free-regular-svg-icons'
+import { faTwitter, faInstagram, faFacebook, faLinkedin, faWhatsapp } from '@fortawesome/free-brands-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-const router = createRouter({
-    history: createWebHistory(),
-    mode:'history',
-    routes: routes
-})
+library.add(faStar,farStar,faMagnifyingGlass,faAt,faUserSecret, faTwitter, faInstagram, faFacebook, faLinkedin, faWhatsapp)
+
 
 const app = createApp(App)
-app.use(router)
+app.component('font-awesome-icon', FontAwesomeIcon)
+app.use(Router)
 app.mount('#app')

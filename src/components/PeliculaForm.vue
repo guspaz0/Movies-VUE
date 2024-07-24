@@ -3,7 +3,7 @@
     <link href="/css/addPelicula.css" rel="stylesheet"/>
     <link href="/css/popUp.css" rel="stylesheet"/>
     <div class="container">
-        <form id="addMovie">
+        <form v-on:submit.prevent="handleSubmit" id="addMovie">
             <h2>Formulario de Pelicula</h2>
             <div class="container-inputs">
             <span class="container-data">
@@ -25,7 +25,7 @@
                 </div>
             </fieldset>
             </div>
-            <input @click="handleSubmit" id="submit" name="submit" type="submit"/>
+            <input id="submit" name="submit" type="submit"/>
         </form>
     </div>
     <popUp v-if="Object.keys(popUpData).some(x => popUpData[x].length > 0)" :popUpData="popUpData" @setPopUp="setPopUp"/>
@@ -118,9 +118,8 @@ function setPopUp(){
     }   
 }
 
-async function handleSubmit(e){
+async function handleSubmit(){
     try {
-        e.preventDefault()
         if(Object.keys(errors.value).some(x => errors.value[x].length > 0)) {
             popUpData.value.message = 'Corregir los errores del formulario'
         }
@@ -130,7 +129,6 @@ async function handleSubmit(e){
                 popUpData.value = {message: "Pelicula creada con exito", second: 5, redirect: '/peliculas'}
             }
         }
-
     } catch (error) {
         console.log(error)
     }

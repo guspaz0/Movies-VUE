@@ -14,6 +14,19 @@
                         <ul>
                             <li v-for="genre in Movie.genres">{{ genre.name }}</li>
                         </ul>
+                        <span>
+                            <b>Calificacion: </b>
+                            <span v-for="i in [0,1,2,3,4]">
+                                <span v-if="origen == 'local'">
+                                    <font-awesome-icon v-if="i < Movie.stars" :icon="['fas', 'star']" />
+                                    <font-awesome-icon v-else :icon="['far', 'star']"/>
+                                </span>
+                                <span v-if="origen == 'terceros'">
+                                    <font-awesome-icon v-if="i < Math.round(Movie.vote_average/10*5)" :icon="['fas', 'star']" />
+                                    <font-awesome-icon v-else :icon="['far', 'star']"/>
+                                </span>
+                            </span>
+                        </span>
                     </span>
                     </div>
             </div>
@@ -30,6 +43,7 @@ const {origen, id} = route.params
 
 let Movie = ref({})
 let background_img = ref('')
+
 
 watch(Movie, ()=> {
     background_img.value = origen == 'local'? Movie.value.background_image : `https://image.tmdb.org/t/p/w500/${Movie.value.backdrop_path}`

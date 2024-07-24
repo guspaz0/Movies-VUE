@@ -14,9 +14,12 @@
                     </label>
                 </fieldset>
                 <form>
-                    <label for="searchMovie">Buscar:</label>
-                    <input v-model="search" id="searchMovie" type="search" name="search"/>
-                    <button @click="handleSearch" class="btn">Buscar</button>
+                    
+                    <button v-on:click.prevent="handleSearch" class="btn">
+                        <label for="searchMovie">Buscar:</label>
+                        <input v-model="search" id="searchMovie" type="search" name="search"/>
+                        <font-awesome-icon :icon="['fas', 'magnifying-glass']" />
+                    </button>
                 </form>
                 <button id="addMovie" class="btn">
                     <router-link v-bind:to="'/peliculas/add'">Agregar Pelicula</router-link>
@@ -96,7 +99,6 @@ function handleorigin(event: any){
 }
 async function handleSearch(e: any){
     try {
-        e.preventDefault()
         if (origen.value == 'terceros') {
             endpoint = `/search/movie?query=${searchQuery}&include_adult=false&language=en-US&page=`
             if (page.value == 1) {

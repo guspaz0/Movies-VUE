@@ -53,7 +53,12 @@
                         <h5 class="card-title">{{ movie.title }}</h5>
                         <p class="card-text">{{ movie.short_overview }}</p>
                         <p class="card-text">
-                            <small class="text-body-secondary">Pelicula calificada: {{ movie.stars }} estrellas</small>
+                            <small class="text-body-secondary">Pelicula calificada: 
+                            <span v-for="i in [0,1,2,3,4]">
+                                <font-awesome-icon v-if="i < movie.stars" :icon="['fas', 'star']" />
+                                <font-awesome-icon v-else :icon="['far', 'star']"/>
+                            </span>
+                            </small>
                         </p>
                     </router-link>
                 </div>
