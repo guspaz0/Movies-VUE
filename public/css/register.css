@@ -7,9 +7,15 @@ body {
 
 .container {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+form {
+    background-color: #f0f0f0;
 }
 
 .register-form {
@@ -51,4 +57,8 @@ button {
 
 button:hover {
     background-color: orange !important;
+}
+
+.error {
+    color: red;
 }

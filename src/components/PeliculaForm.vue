@@ -34,7 +34,6 @@
 <script setup lang="ts">
 import {ref, watch, reactive, onMounted } from 'vue'
 import {fetchData} from '../utils/utils'
-import popUp from './popUp.vue'
 
 let Genres: List<Genre> = ref([])
 
