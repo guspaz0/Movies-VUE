@@ -1,49 +1,6 @@
 <template>
     <main>
-    <nav>
-        <!-- carrucel  -->
-        <div id="carouselExampleCaptions" class="carousel slide">
-            <div class="carousel-indicators">
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
-            </div>
-            <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="/imagenes/cine.jpg" class="d-block w-100" alt="Pelicula 1" loading="lazy"/>
-                <div class="carousel-caption d-none d-md-block">
-                <h5>Pelicula 1</h5>
-                <p>Peliculas de terror: suspenso y drama.</p>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <img src="/imagenes/netflix.jpg" class="d-block w-100" alt="pelicula 3" loading="lazy"/>
-                <div class="carousel-caption d-none d-md-block">
-                <h5>Pelicula 2</h5>
-                <p>Pelicula de comedia: diversion y drama.</p>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <img src="/imagenes/musical.jpg" class="d-block w-100" alt="pelicula" loading="lazy"/>
-                <div class="carousel-caption d-none d-md-block">
-                <h5>PELICULA 3</h5>
-                <p>Peliculas de terror: suspenso y drama.</p>
-                </div>
-            </div>
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Atras</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Siguiente</span>
-            </button>
-        </div>
-        <!-- final del carrucel  -->
-    </nav>
-    <hr>
-    <!-- card -->
+    <Carrucel/>
     <div class="container-fluid">
         <div class="row">
             <div class="card-group">
@@ -65,33 +22,15 @@
             </div>
         </div>
     </div>
-    <!-- final del card -->
-    <!-- formulario de contacto -->
-    <div class="contactanos" >
-        <div class="card" id="contacto">
-            <div class="card-body">
-            <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label">Ingresa tu Email </label>
-                <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
-            </div>
-            <div class="mb-3">
-                <label for="exampleFormControlTextarea1" class="form-label">Ingresa tu consulta</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-            </div>
-            <div class="mb-3">
-                <button type="button" class="btn btn-outline-warning">Enviar</button>
-            </div>
-            
-            </div>
-        </div>
-    </div>
-    <!-- final del formulario de contacto -->
+    <Contacto/>
     </main>
     <hr>
 </template>
 <script setup lang="ts">
 import {ref, onMounted} from 'vue'
 import { fetchData } from '../utils/utils'
+import Contacto from './Contacto.vue'
+import Carrucel from './Carrucel.vue'
 
 let Movies = ref([])
 

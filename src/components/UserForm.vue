@@ -29,13 +29,17 @@
             </div>
             <div class="form-group">
                 <label for="country"><b>País:</b></label>
-                <select v-if="Countries.length > 0" v-model="form.country_code" id="country" name="country_code">
-                    <option v-for="country in Countries" 
-                        :value="country.cca2">
-                        {{ country.name.nativeName.spa.common }}
-                        <img :src="country.flags.png" :alt="country.cca2"/>
-                    </option>
-                </select>
+                <span>                
+                    <select v-if="Countries.length > 0" v-model="form.country_code" id="country" name="country_code">
+                        <option v-for="country in Countries" :value="country.cca2">
+                            {{ country.name.nativeName.spa.common }}
+                        </option>
+                    </select>
+                    <img v-if="form.country_code" 
+                        :src="Countries.find(x => x.cca2 == form.country_code).flags.png" 
+                        :alt="form.country_code"
+                        class="country-flag"/>
+                </span>
                 <small v-if="errors.country_code" class="error">{{ errors.country_code }}</small>
             </div>
             <div class="form-group">
@@ -62,10 +66,7 @@ let Countries = ref('')
 onMounted(async () => {
     try {
         let codes = ['CO','UY','PY','BO','CL','AR','VE','PE','EC'] // SOUTH AMERICA only
-        const res = await fetch(`https://restcountries.com/v3.1/alpha?codes=${codes.join(',')}&fields=name,flags,cca2`)
-        if (res.status == 200) {
-            Countries.value = await res.json()
-        }
+        Countries.value = await fetchData('countries',`/alpha?codes=${codes.join(',')}&fields=name,flags,cca2`)
     } catch (error) {console.log(error)}
 })
 
@@ -148,7 +149,9 @@ async function handleSubmit(){
         }
     } catch (error) {console.log(error)}
 }
-
-
-
 </script>
+<style scoped>
+img.country-flag {
+    width: 50px;
+}
+</style>
