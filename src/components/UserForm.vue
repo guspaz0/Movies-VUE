@@ -143,7 +143,9 @@ async function handleSubmit(){
         }
         else {
             let newUser = await fetchData('local','/users', 'POST', form)
-            if (newUser.id) {
+            if (newUser instanceof Error) {
+                popUpData.value.message = newUser.message
+            } else {
                 popUpData.value = {message: "Usuario registrado con exito", second: 5, redirect: '/login'}
             }
         }

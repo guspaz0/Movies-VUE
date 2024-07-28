@@ -1,13 +1,3 @@
-<script setup lang="ts">
-const menu =  [
-    {href: '/', nombre: 'Inicio'},
-    {href: '/peliculas', nombre: 'Peliculas'},
-    {href: '/nosotros', nombre: 'Nosotros'},
-    {href: '/login', nombre: 'Iniciar Sesion'}
-]
-</script>
-
-
 <template>
     <header class="bg-color">
         <div class="container-fluid">
@@ -26,6 +16,10 @@ const menu =  [
                         <li v-for="list in menu" class="btn">
                             <router-link v-bind:to="list.href">{{ list.nombre }}</router-link>
                         </li>
+                        <li v-if="!props.userData.hasOwnProperty('id')" class="btn">
+                            <router-link  v-bind:to="'/login'">Iniciar sesion</router-link>
+                        </li>
+                        <button v-else="" class="btn" v-on:click.prevent="emit('handleLogout')">Cerrar Sesion</button>
                     </ul>
                 </div>
             </div>
@@ -33,3 +27,17 @@ const menu =  [
     </header>
     <hr>
 </template>
+<script setup lang="ts">
+import {reactive} from 'vue'
+
+
+let props = defineProps(['userData'])
+const emit = defineEmits(["handleLogout"]);
+
+const menu =  [
+    {href: '/', nombre: 'Inicio'},
+    {href: '/peliculas', nombre: 'Peliculas'},
+    {href: '/nosotros', nombre: 'Nosotros'}
+]
+
+</script>

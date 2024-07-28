@@ -75,12 +75,13 @@ async function handleSubmit(){
             popUpData.value.message = 'Corregir los errores del formulario'
         } else {
             let user = await fetchData('local','/users/login','POST', form)
-            if (user.id) {
-                sessionStorage.setItem('userData',user)
+            if (user instanceof Error) {
+                popUpData.value.message = user.message
+            } else {
+                sessionStorage.setItem('userData',JSON.stringify(user))
                 popUpData.value = {message: `Bienvenido ${user.name}!`, second: 2, redirect: '/'}
             }
         }
-
     } catch (error) {
         console.log(error)
     }

@@ -22,11 +22,13 @@ export async function fetchData(origen: String, param: String, method: String, b
             [body? 'body': '']: body? JSON.stringify(body) : ''
         }
         const res = await fetch(`${host[origen]}${param}`, config)
-
-        if (method?.toUpperCase() == 'POST') {
-            if (res.status !== 201 && param == '/movies') throw new Error('error al postear datos')
-            else return await res.json()
-        } 
+        if (!res.ok) {
+            if (method?.toUpperCase() == 'POST') {
+                if (res.status !== 201 && param == '/movies') return new Error('error al postear datos')
+                else if(res.status == 400 && param == '/users') return new Error('el usuario ya existe')
+                else if(param == '/users/login') return new Error('error al iniciar sesion')
+            } else return new Error('Error no manejado')
+        }
         else return await res.json()
     } catch(error) {
         console.log(error)

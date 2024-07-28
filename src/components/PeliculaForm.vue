@@ -67,7 +67,9 @@ let errors = ref({
 
 onMounted(async ()=>{
     try {
-        Genres.value = await fetchData('local','/genres')
+        let data = await fetchData('local','/genres')
+        if(data instanceof Error) popUpData.value.message = data.message
+        else Genres.value = data
     } catch (error) {console.log(error)}
 })
 watch(()=> form.title,(value)=> {
@@ -124,7 +126,9 @@ async function handleSubmit(){
         }
         else {
             let newMovie = await fetchData('local','/movies', 'POST', form)
-            if (newMovie.id) {
+            if (newMovie instanceof Error) {
+                popUpData.value.message = newMovie.message
+            } else {
                 popUpData.value = {message: "Pelicula creada con exito", second: 5, redirect: '/peliculas'}
             }
         }

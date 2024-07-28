@@ -1,4 +1,5 @@
 import { createApp } from 'vue'
+import { createPinia } from 'pinia'
 import App from './App.vue'
 import Router from './router'
 import popUp from './components/popUp.vue'
@@ -11,8 +12,9 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 library.add(faStar,farStar,faMagnifyingGlass,faAt,faUserSecret, faTwitter, faInstagram, faFacebook, faLinkedin, faWhatsapp)
 
-
+const pinia = createPinia()
 const app = createApp(App)
+app.use(pinia)
 app.component('font-awesome-icon', FontAwesomeIcon)
 app.component('PopUp', popUp)
 app.use(Router)
