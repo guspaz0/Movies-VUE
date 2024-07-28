@@ -13,13 +13,12 @@
                     <h1>Peliculas y Series</h1>
                     </div>
                     <ul class="col">
-                        <li v-for="list in menu" class="btn">
-                            <router-link v-bind:to="list.href">{{ list.nombre }}</router-link>
+                        <li v-for="list in menu">
+                            <button v-if="list.nombre == 'Cerrar Sesion'" v-on:click.prevent="handleLogout" class="btn">
+                                {{ list.nombre }}
+                            </button>
+                            <router-link v-else="" v-bind:to="list.href" class="btn">{{ list.nombre }}</router-link>
                         </li>
-                        <li v-if="!props.userData.hasOwnProperty('id')" class="btn">
-                            <router-link  v-bind:to="'/login'">Iniciar sesion</router-link>
-                        </li>
-                        <button v-else="" class="btn" v-on:click.prevent="emit('handleLogout')">Cerrar Sesion</button>
                     </ul>
                 </div>
             </div>
@@ -28,16 +27,38 @@
     <hr>
 </template>
 <script setup lang="ts">
-import {reactive} from 'vue'
+import { computed } from 'vue'
+import { storeToRefs } from 'pinia'
+import { useUserStore } from '../store/user'
 
+const { user } = storeToRefs(useUserStore())
 
-let props = defineProps(['userData'])
-const emit = defineEmits(["handleLogout"]);
+const username = computed(() => user.value?.name)
+const displayStatus = computed(() => username.value ? 'authorized' : 'anonym')
 
-const menu =  [
-    {href: '/', nombre: 'Inicio'},
-    {href: '/peliculas', nombre: 'Peliculas'},
-    {href: '/nosotros', nombre: 'Nosotros'}
-]
+const allMenus =  computed(()=>[
+    {href: '/', nombre: 'Inicio', display: 'all'},
+    {href: '/peliculas', nombre: 'Peliculas', display: 'all'},
+    {href: '/nosotros', nombre: 'Nosotros', display: 'all'},
+    {href: '/login', nombre: 'Iniciar Sesion', display: 'anonym'},
+    {href: '/favoritos', nombre: 'Favoritos', display: 'authorized'},
+    {href: '/profile', nombre: 'Profile', display: 'authorized'},
+    {href: '/', nombre: 'Cerrar Sesion', display: 'authorized'}
+])
+
+const menu = computed(()=> allMenus.value.filter(
+    l => l.display === displayStatus.value || l.display === 'all',
+))
+
+function handleLogout(){
+    const { updateUser } = useUserStore()
+    updateUser(null)
+}
 
 </script>
+
+<style scoped>
+li {
+    list-style: none;
+}
+</style>

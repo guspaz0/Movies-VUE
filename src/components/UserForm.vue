@@ -66,7 +66,9 @@ let Countries = ref('')
 onMounted(async () => {
     try {
         let codes = ['CO','UY','PY','BO','CL','AR','VE','PE','EC'] // SOUTH AMERICA only
-        Countries.value = await fetchData('countries',`/alpha?codes=${codes.join(',')}&fields=name,flags,cca2`)
+        let countryData = await fetchData('countries',`/alpha?codes=${codes.join(',')}&fields=name,flags,cca2`)
+        if (countryData instanceof Error) popUpData.value.message = countryData.message
+        else Countries.value = countryData
     } catch (error) {console.log(error)}
 })
 

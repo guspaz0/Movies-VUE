@@ -1,20 +1,65 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import type { RouteParams, RouteRecordRaw } from 'vue-router'
 import Home from './components/Home.vue'
 import Peliculas from './components/Peliculas.vue'
-import MovieDetail from './components/MovieDetail.vue'
-import PeliculaForm from './components/PeliculaForm.vue'
-import Nosotros from './components/Nosotros.vue'
-import UserForm from './components/UserForm.vue'
-import Login from './components/Login.vue'
+import { isAuthorized } from './store/user'
 
-const routes = [
-    {path: '/', name: 'Home', component: Home},
-    {path: '/peliculas', name: 'Peliculas', component: Peliculas},
-    {path: '/peliculas/add', name: 'PeliculaForm', component: PeliculaForm},
-    {path: '/peliculas/:origen/:id', name: 'MovieDetail', component: MovieDetail},
-    {path: '/nosotros', name: 'Nosotros', component: Nosotros},
-    {path: '/register', name: 'UserForm', component: UserForm},
-    {path: '/login', name: 'Iniciar Sesion', component: Login}
+export type AppRouteNames =
+    | 'Home'
+    | 'Peliculas'
+    | 'PeliculaForm'
+    | 'MovieDetail'
+    | 'Nosotros'
+    | 'UserForm'
+    | 'login'
+    | 'Profile'
+
+const routes: RouteRecordRaw[] = [
+    {
+        path: '/', 
+        name: 'Home', 
+        component: Home
+    },
+    {
+        path: '/peliculas', 
+        name: 'Peliculas', 
+        component: Peliculas
+    },
+    {
+        path: '/peliculas/add', 
+        name: 'PeliculaForm', 
+        component: ()=> import ('./components/PeliculaForm.vue'),
+        beforeEnter: ()=> !isAuthorized()
+    },
+    {
+        path: '/peliculas/:origen/:id', 
+        name: 'MovieDetail', 
+        component: ()=> import('./components/MovieDetail.vue')
+    },
+    {
+        path: '/nosotros',
+        name: 'Nosotros',
+        component: ()=> import('./components/Nosotros.vue'),
+        
+    },
+    {   
+        path: '/register', 
+        name: 'UserForm', 
+        component: ()=> import('./components/UserForm.vue'),
+        beforeEnter: ()=> !isAuthorized()
+    },
+    {
+        path: '/login', 
+        name: 'login', 
+        component: ()=> import('./components/Login.vue'),
+        beforeEnter: ()=> !isAuthorized()
+    },
+    {
+        path: '/profile', 
+        name: 'Profile', 
+        component: ()=> import('./components/Profile.vue'),
+        beforeEnter: ()=> isAuthorized()
+    }
 ]
 
 const Router = createRouter({
@@ -24,3 +69,10 @@ const Router = createRouter({
 })
 
 export default Router
+
+
+export function routerPush(name: AppRouteNames, params?: RouteParams): ReturnType<typeof Router.push> {
+    return params === undefined
+        ? Router.push({ name })
+        : Router.push({ name, params })
+}

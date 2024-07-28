@@ -13,7 +13,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="card" style="width: 18rem;">
-                        <a href="./elizabeth.html" target="_blank"><img src="/imagenes/elizabeth.jpeg" class="card-img-top" alt="fotodeperfil"></a>
+                        <a href="./elizabeth.html" target="_blank"><img src="https://avatars.githubusercontent.com/u/88147609?v=4" class="card-img-top" alt="fotodeperfil"></a>
                                 
                         <div class="card-body">
                             <p> Para conocer a Elizabeth Villablanca hace click en su imagen</p>

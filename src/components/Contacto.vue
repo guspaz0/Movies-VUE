@@ -52,9 +52,8 @@ async function handleSubmit(){
         }
         else {
             let newUser = await fetchData('local','/contact', 'POST', form)
-            if (newUser.id) {
-                popUpData.value = {message: "Mensaje enviado!", second: 3, redirect: '/'}
-            }
+            if (newUser instanceof Error) popUpData.value.message = newUser.message
+            else popUpData.value = {message: "Mensaje enviado!", second: 3, redirect: '/'}
         }
     } catch (error) {
         console.log(error)

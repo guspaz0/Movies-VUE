@@ -32,7 +32,10 @@
 <script setup lang="ts">
 import { ref, watch, reactive } from 'vue'
 import fetchData from '../utils/utils';
-import popUp from './popUp.vue'
+import { useUserStore } from '../store/user'
+
+
+const { updateUser } = useUserStore()
 
 let form = reactive({
     username: '',
@@ -78,7 +81,7 @@ async function handleSubmit(){
             if (user instanceof Error) {
                 popUpData.value.message = user.message
             } else {
-                sessionStorage.setItem('userData',JSON.stringify(user))
+                updateUser(user)
                 popUpData.value = {message: `Bienvenido ${user.name}!`, second: 2, redirect: '/'}
             }
         }

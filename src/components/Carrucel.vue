@@ -8,21 +8,21 @@
             </div>
             <div class="carousel-inner">
             <div class="carousel-item active">
-                <img src="/imagenes/cine.jpg" class="d-block w-100" alt="Pelicula 1" loading="lazy"/>
+                <img src="https://res.cloudinary.com/dbowsjk6p/image/upload/v1722183598/dnb0a0zg5fsoecpduewm.jpg" class="d-block w-100" alt="Pelicula 1" loading="lazy"/>
                 <div class="carousel-caption d-none d-md-block">
                 <h5>Pelicula 1</h5>
                 <p>Peliculas de terror: suspenso y drama.</p>
                 </div>
             </div>
             <div class="carousel-item">
-                <img src="/imagenes/netflix.jpg" class="d-block w-100" alt="pelicula 3" loading="lazy"/>
+                <img src="https://res.cloudinary.com/dbowsjk6p/image/upload/v1722183600/fxvgj8dnnix2zsz9c5st.jpg" class="d-block w-100" alt="pelicula 3" loading="lazy"/>
                 <div class="carousel-caption d-none d-md-block">
                 <h5>Pelicula 2</h5>
                 <p>Pelicula de comedia: diversion y drama.</p>
                 </div>
             </div>
             <div class="carousel-item">
-                <img src="/imagenes/musical.jpg" class="d-block w-100" alt="pelicula" loading="lazy"/>
+                <img src="https://res.cloudinary.com/dbowsjk6p/image/upload/v1722183593/zu66euzxcfgjnajj7tlx.jpg" class="d-block w-100" alt="pelicula" loading="lazy"/>
                 <div class="carousel-caption d-none d-md-block">
                 <h5>PELICULA 3</h5>
                 <p>Peliculas de terror: suspenso y drama.</p>
