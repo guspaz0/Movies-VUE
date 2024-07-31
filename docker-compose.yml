@@ -1,0 +1,15 @@
+services:
+  vite-project:
+    container_name: Movies-Vue
+    build: 
+      dockerfile: Dockerfile
+      context: ./
+    image: vite-project
+    env_file:
+      - .env
+    volumes:
+      - ./public/:/usr/code/public/
+      - ./src/:/usr/code/src/
+    ports:
+      - 8081:8081
+    command: npm run dev
